@@ -211,7 +211,7 @@ header .options {
   margin-bottom: 20px;
 }
 
-.draw-wrapper .canvas .load-source .load-source--button {
+.draw-wrapper .canvas .load-source .load-source__button {
   padding: 5px 10px;
   border: 1px solid rgba(103, 93, 246, 0.8);
   background: rgba(103, 93, 246, 0.8);
@@ -219,12 +219,12 @@ header .options {
   color: white;
 }
 
-.draw-wrapper .canvas .load-source .load-source--button:hover {
+.draw-wrapper .canvas .load-source .load-source__button:hover {
   background: rgba(103, 93, 246, 0.6);
   cursor: pointer;
 }
 
-.draw-wrapper .canvas .load-source .load-source--button:active {
+.draw-wrapper .canvas .load-source .load-source__button:active {
   background: #675df6;
 }
 
@@ -241,6 +241,29 @@ header .options {
 }
 
 .draw-wrapper .canvas .change-size {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   padding-top: 20px;
+}
+
+.draw-wrapper .canvas .change-size .grayscale__button {
+  padding: 5px 10px;
+  border: 1px solid rgba(103, 93, 246, 0.8);
+  background: rgba(103, 93, 246, 0.8);
+  border-radius: 5px;
+  color: white;
+}
+
+.draw-wrapper .canvas .change-size .grayscale__button:hover {
+  background: rgba(103, 93, 246, 0.6);
+  cursor: pointer;
+}
+
+.draw-wrapper .canvas .change-size .grayscale__button:active {
+  background: #675df6;
 }
 /*# sourceMappingURL=style.css.map */

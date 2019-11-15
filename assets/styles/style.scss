@@ -145,7 +145,7 @@ header {
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
-            .load-source--button {
+            .load-source__button {
                 padding: 5px 10px;
                 border: 1px solid rgba($color: #675df6, $alpha: 0.8);
                 background:  rgba($color: #675df6, $alpha: 0.8);
@@ -168,7 +168,23 @@ header {
             z-index: -1;
         }
         .change-size {
+            display: flex;
+            justify-content: space-between;
             padding-top: 20px;
+            .grayscale__button {
+                padding: 5px 10px;
+                border: 1px solid rgba($color: #675df6, $alpha: 0.8);
+                background:  rgba($color: #675df6, $alpha: 0.8);
+                border-radius: 5px;
+                color: white;
+                &:hover {
+                    background:  rgba($color: #675df6, $alpha: 0.6);
+                    cursor: pointer;
+                }
+                &:active {
+                    background:  rgba($color: #675df6, $alpha: 1);
+                }
+            }
         }
     }
     

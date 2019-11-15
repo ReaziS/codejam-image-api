@@ -23,6 +23,7 @@ window.addEventListener('load', () => {
   const currentColorNode = document.getElementById('currentColor');
   const prevColorNode = document.getElementById('prevColor');
   const imageSizeRange = document.getElementById('imageSize');
+  const grayScale = document.getElementById('grayscale');
   let currentColor;
   let prevColor;
   let state = {};
@@ -295,6 +296,18 @@ window.addEventListener('load', () => {
     loadCanvas(null, window.imgUrl);
   }
   loadRandomImgButton.addEventListener('click', loadRandomImage);
+  /* Grayscale */
+  function grayScaleImg() {
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+      data[i] = avg; // red
+      data[i + 1] = avg; // green
+      data[i + 2] = avg; // blue
+    }
+    ctx.putImageData(imageData, 0, 0);
+  }
   /* Events for load and save state */
   const saveToLocalStorage = document.getElementById('saveToLocalStorage');
   saveToLocalStorage.addEventListener('click', saveCanvas);
@@ -305,5 +318,6 @@ window.addEventListener('load', () => {
   prevColorNode.addEventListener('click', prevColorPicker);
   document.addEventListener('keydown', keyBoardEvents);
   imageSizeRange.addEventListener('change', onRangeChange);
+  grayScale.addEventListener('click', grayScaleImg);
   initElements();
 });
