@@ -7,6 +7,8 @@
 /* module.exports = function test() {
   return 32;
 }; */
+import './assets/styles/style.scss';
+
 window.addEventListener('load', () => {
   /* Canvas */
   const canvas = document.getElementById('canv');
@@ -48,7 +50,6 @@ window.addEventListener('load', () => {
     }
   }
   getState();
-
   /* Save application state */
   function appStateSaver(option, field) {
     if (option === 'currentColor') {
@@ -284,7 +285,6 @@ window.addEventListener('load', () => {
     await fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         loadCanvas(null, data.urls.small);
       });
   }
