@@ -7,7 +7,7 @@
 /* module.exports = function test() {
   return 32;
 }; */
-import './assets/styles/style.scss';
+// import './assets/styles/style.scss';
 
 window.addEventListener('load', () => {
   /* Canvas */
@@ -41,7 +41,7 @@ window.addEventListener('load', () => {
       prevColorNode.value = prevColor;
       // load saved image
       // eslint-disable-next-line no-use-before-define
-      state.canvasImgFromState ? loadCanvas(null, state.canvasImgFromState) : null;
+      state.canvasImgFromState ? loadCanvas() : null;
     } else {
       currentColor = '#ffffff';
       currentColorNode.value = currentColor;
@@ -61,6 +61,9 @@ window.addEventListener('load', () => {
     if (option === 'canvasImgFromState') {
       state.canvasImgFromState = field;
       console.log(field);
+    }
+    if (option === 'currentSize') {
+      state.currentSize = field;
     }
     localStorage.setItem('state', JSON.stringify(state));
   }
@@ -260,21 +263,27 @@ window.addEventListener('load', () => {
   }
 
   /* Save and load to local or from server */
+  let isLoad = false;
   function saveCanvas() {
     const toData = canvas.toDataURL('image/jpeg', 1.0);
     appStateSaver('canvasImgFromState', toData);
+    isLoad = false;
   }
   function loadCanvas(e, img) {
     const image = new Image();
+    image.setAttribute('crossorigin', 'anonymous');
+    ctx.imageSmoothingEnabled = false;
+    ctx.webkitImageSmoothingEnabled = false;
     if (!img) {
       image.src = state.canvasImgFromState;
+      image.height = 512;
+      image.width = 512;
     } else {
-      image.setAttribute('crossorigin', 'anonymous');
       image.src = img;
-      window.imgUrl = img;
+      appStateSaver('canvasImgFromState', img);
     }
     image.onload = function () {
-      ctx.drawImage(image, 0, 0, canvasSize, canvasSize);
+      ctx.drawImage(image, canvas.width / 2 - (image.width / 2) / resolutionRate, canvas.width / 2 - (image.width / 2) / resolutionRate, image.width / resolutionRate, image.height / resolutionRate);
     };
   }
   /* Load random image from server  */
@@ -286,14 +295,20 @@ window.addEventListener('load', () => {
       .then((res) => res.json())
       .then((data) => {
         loadCanvas(null, data.urls.small);
+        isLoad = true;
       });
   }
   function onRangeChange(e) {
     canvasSize = e.target.value * 64;
+    appStateSaver('currentSize', canvasSize);
     canvas.width = canvasSize;
     canvas.height = canvasSize;
     resolutionRate = RESOLUTION / canvasSize;
-    loadCanvas(null, window.imgUrl);
+    if (isLoad) {
+      loadCanvas(null, state.canvasImgFromState);
+    } else {
+      loadCanvas();
+    }
   }
   loadRandomImgButton.addEventListener('click', loadRandomImage);
   /* Grayscale */
@@ -308,6 +323,11 @@ window.addEventListener('load', () => {
     }
     ctx.putImageData(imageData, 0, 0);
   }
+  /* CLEAR CANVAS */
+  const clearCanvasButton = document.getElementById('clearCanvas');
+  function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
   /* Events for load and save state */
   const saveToLocalStorage = document.getElementById('saveToLocalStorage');
   saveToLocalStorage.addEventListener('click', saveCanvas);
@@ -319,5 +339,6 @@ window.addEventListener('load', () => {
   document.addEventListener('keydown', keyBoardEvents);
   imageSizeRange.addEventListener('change', onRangeChange);
   grayScale.addEventListener('click', grayScaleImg);
+  clearCanvasButton.addEventListener('click', clearCanvas);
   initElements();
 });
