@@ -7,7 +7,7 @@
 /* module.exports = function test() {
   return 32;
 }; */
-// import './assets/styles/style.scss';
+import './assets/styles/style.scss';
 
 window.addEventListener('load', () => {
   /* Canvas */
