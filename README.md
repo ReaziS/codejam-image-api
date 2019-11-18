@@ -1,1 +1,1 @@
-# codejam-image-api
+# webpack-boilerplate

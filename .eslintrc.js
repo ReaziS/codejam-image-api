@@ -3,7 +3,10 @@ module.exports = {
         "browser": true,
         "es6": true
     },
-    "extends": 'airbnb-base',
+        "extends": [
+            "airbnb-base",
+            "prettier"
+        ],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -13,6 +16,5 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
-        "linebreak-style": ["error", "windows"]
     }
 };
