@@ -34,7 +34,7 @@ module.exports = {
   plugins: [
     new HtmlWepPackPlugin({
       template: './src/canvas.html',
-      filename: './canvas.html',
+      filename: './index.html',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
