@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/netlify-auth-providers"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="burger">
+            <img src="images/Shape.svg" alt="">
+            <span class="header__title">CodeJam - Pallete</span>
+        </div>
+        <div class="login">
+            <p><a href="#" id="login">Authenticate</a></p>
+            <p id="output"></p>
+        </div>
+        <div class="options"><img src="images/menu icon.svg" alt=""></div>
+    </header>
+    <section class="draw-wrapper">
+        <div class="instruments-wrapper">
+                <div class="instruments-main" id="instruments-panel">
+                    <div class="instrument paint-bucket" id="paintBucket">
+                        <img src="images/Vector.svg" alt="">
+                        <span>Paint bucket</span>
+                    </div>
+                    <div class="instrument color-picker" id="colorPicker">
+                        <img src="images/Vector2.svg" alt="">
+                        <span>Choose color</span>
+                    </div>
+                    <div class="instrument pencil" id="pencil">
+                        <img src="images/icon-copy.svg" alt="">
+                        <span>Pencil</span>
+                    </div>
+                    <div class="instrument" id="bresenham">
+                        <img src="images/icon-copy.svg" alt="">
+                        <span>Bresenham</span>
+                    </div>
+                    <div class="instrument move">
+                        <img src="images/Move.svg" alt="">
+                        <span>Move</span>
+                    </div>
+                    <div class="instrument transform">
+                        <img src="images/Vector1.svg" alt="">
+                        <span>Transform</span>
+                    </div>
+                </div>
+                <div class="instruments-sub">
+                    <label class="instrument" id="currentColorWrapper">
+                        <input id="currentColor" type="color">
+                        <span>Current color</span>
+                    </label>
+                    <label class="instrument" id="prevColorWrapper">
+                        <input id="prevColor" type="color">
+                        <span>Prev color</span>
+                    </label>
+                    <label class="instrument">
+                        <input id="saveToLocalStorage" type="button" value="Save">
+                        <span>Save to local storage</span>
+                    </label>
+                    <label class="instrument">
+                        <input id="loadFromLocalStorage" type="button" value="Load">
+                        <span>Load from local storage</span>
+                    </label>
+                    
+                </div>
+            </div>
+            <div class="canvas">
+                <div class="load-source">
+                    <div class="load-source__button" id="loadRandomImgButton">Load</div>
+                    <input type="search" id="citySearch">
+                    <div class="load-source__button bandw" id="clearCanvas">Clear</div>
+                </div>
+                <canvas id="canv" width="32" height="32">
+                </canvas>
+                <div class="change-size">
+                    <input type="range" id="imageSize" min="1" max="8" step="1">
+                    <div class="grayscale__button" id="grayscale">Grayscale</div>
+                </div>
+            </div>
+    </section>
+    <script>
+        const anchorTag = document.getElementById('login')
+        const outputText = document.getElementById('output')
+        anchorTag.addEventListener('click', (e) => {
+          e.preventDefault()
+          const authenticator = new netlify.default ({})
+          authenticator.authenticate({provider:"github", scope: "user"}, (err, data) => {
+            err ? outputText.innerText = "Error Authenticating with GitHub: " + err : 
+            outputText.innerText = "Authenticated with GitHub. Access Token: " + data.token
+          })
+        })
+      </script>
+</body>
+</html>
